@@ -22,9 +22,9 @@ def send_message():
     sender_id = data.get('senderId')
     channel = data.get('channel', 'josue-juanito')
 
-    # Usar formato consistente
+    # Corregir el formato del trigger
     pusher_client.trigger(channel, 'my-event', {
-        'message': {'message': message},  # Formato anidado
+        'message': message,  # Enviar solo el texto, sin anidación
         'senderId': sender_id
     })
     
