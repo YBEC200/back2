@@ -17,12 +17,14 @@ pusher_client = pusher.Pusher(
 def send_message():
     data = request.get_json()
     message = data.get('message')
+    if isinstance(message, dict):
+        message = message.get('message')  # Extraer mensaje anidado
     sender_id = data.get('senderId')
-    channel = data.get('channel', 'my-channel')  # Agregar soporte para canal
+    channel = data.get('channel', 'josue-juanito')
 
-    # Usar el mismo formato que el otro backend
+    # Usar formato consistente
     pusher_client.trigger(channel, 'my-event', {
-        'message': message,
+        'message': {'message': message},  # Formato anidado
         'senderId': sender_id
     })
     
